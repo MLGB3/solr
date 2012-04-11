@@ -131,6 +131,7 @@
    <field name="sm1" type="string" indexed="true" stored="true"/>
    <field name="sm2" type="string" indexed="true" stored="true"/>
    <field name="ev" type="string" indexed="true" stored="true"/>
+   <field name="evn" type="string" indexed="true" stored="true"/>
    <field name="soc" type="string" indexed="true" stored="true"/>
    <field name="dt" type="string" indexed="true" stored="true"/>
    <field name="pm" type="string" indexed="true" stored="true"/>
@@ -150,6 +151,7 @@
    <field name="authortitle" type="text" indexed="true" stored="false" multiValued="false"/>
    <field name="location" type="text" indexed="true" stored="false" multiValued="false"/>
    <field name="institute" type="text" indexed="true" stored="false" multiValued="false"/>
+   <field name="evidence_notes" type="text" indexed="true" stored="false" multiValued="false"/>
 
    <field name="sws" type="string_ws" indexed="true" stored="false" multiValued="true"/>
    <!--<field name="snws" type="string_nws" indexed="true" stored="false" multiValued="true"/>-->
@@ -177,6 +179,7 @@
  <copyField source="ml2" dest="text"/>
  <copyField source="sm1" dest="text"/>
  <copyField source="sm2" dest="text"/>
+ <copyField source="evn" dest="text"/>
  <copyField source="soc" dest="text"/>
  <copyField source="dt" dest="text"/>
  <copyField source="mc" dest="text"/>
@@ -189,6 +192,7 @@
  <copyField source="sm1" dest="nameSort"/>
  <copyField source="sm2" dest="nameSort"/>
  <copyField source="ev" dest="nameSort"/>
+ <copyField source="evn" dest="nameSort"/>
  <copyField source="soc" dest="nameSort"/>
  <copyField source="dt" dest="nameSort"/>
  <copyField source="pm" dest="nameSort"/>

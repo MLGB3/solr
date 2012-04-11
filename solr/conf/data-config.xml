@@ -2,11 +2,12 @@
  <dataSource type="JdbcDataSource" mane="mlgbds-1" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/mlgb" batchSize="-1" convertType="true" user="mlgbAdmin" password="blessing"/>
   <document>
     <entity name="books" 
-                   query="select books_book.id, books_book.provenance_id, books_book.modern_location_1_id, books_book.modern_location_2_id, books_book.shelfmark_1,books_book.shelfmark_2,books_book.evidence_id,books_book.author_title,books_book.date,books_book.pressmark,books_book.medieval_catalogue,books_book.unknown,books_book.notes,IFNULL(books_contains.contains,'') as ac from books_book left join books_contains on book_id_id=books_book.id">
+                   query="select books_book.id, books_book.provenance_id, books_book.modern_location_1_id, books_book.modern_location_2_id, books_book.shelfmark_1,books_book.shelfmark_2,books_book.evidence_id,books_book.evidence_notes,books_book.author_title,books_book.date,books_book.pressmark,books_book.medieval_catalogue,books_book.unknown,books_book.notes,IFNULL(books_contains.contains,'') as ac from books_book left join books_contains on book_id_id=books_book.id">
 			<field column="id" name="id"/>
 			<field column="shelfmark_1" name="sm1"/>
 			<field column="shelfmark_2" name="sm2"/>
 			<field column="evidence_id" name="ev"/>
+			<field column="evidence_notes" name="evn"/>
 			<field column="author_title" name="soc"/>
 			<field column="date" name="dt"/>
 			<field column="pressmark" name="pm"/>
