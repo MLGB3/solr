@@ -1,0 +1,143 @@
+<dataConfig>
+ <dataSource type="JdbcDataSource" mane="mlgbds-1" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/mlgb" batchSize="-1" convertType="true" user="mlgbAdmin" password="blessing"/>
+  <document>
+    <entity name="books" 
+                   query="select books_book.id, books_book.provenance_id, books_book.modern_location_1_id, books_book.modern_location_2_id, books_book.shelfmark_1,books_book.shelfmark_2,books_book.evidence_id,books_book.author_title,books_book.date,books_book.pressmark,books_book.medieval_catalogue,books_book.unknown,books_book.notes,IFNULL(books_contains.contains,'') as ac from books_book left join books_contains on book_id_id=books_book.id">
+			<field column="id" name="id"/>
+			<field column="shelfmark_1" name="sm1"/>
+			<field column="shelfmark_2" name="sm2"/>
+			<field column="evidence_id" name="ev"/>
+			<field column="author_title" name="soc"/>
+			<field column="date" name="dt"/>
+			<field column="pressmark" name="pm"/>
+			<field column="medieval_catalogue" name="mc"/>
+			<field column="unknown" name="uk"/>
+			<field column="notes" name="nt"/>
+			<field column="ac" name="ac"/>
+
+		   <entity name="pr"
+				   query="select provenance, IFNULL(county,'') as county, IFNULL(institution,'') as institution from books_provenance where id ='${books.provenance_id}'">
+				  <field column="provenance" name="pr"/>
+				  <field column="county" name="ct"/>
+                                  <field column="institution" name="ins"/>
+		   </entity>
+		   <entity name="ml1"
+				   query="select modern_location_1 from books_modern_location_1 where id ='${books.modern_location_1_id}'">
+				  <field column="modern_location_1" name="ml1"/> 
+		   </entity>
+		   <entity name="ml2"
+				   query="select modern_location_2 from books_modern_location_2 where id ='${books.modern_location_2_id}'">
+				  <field column="modern_location_2" name="ml2"/> 
+		   </entity>
+
+	    </entity>
+  </document>
+</dataConfig>
+
+<!--
+package foo;
+public class TrimTransformer    {
+        public Object transformRow(Map<String, Object> row)     {
+                String artist = row.get("artist");
+                if (artist != null)             
+                        row.put("ar", artist.trim());
+
+                return row;
+        }
+}
+
+=================================================
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Enumeration;
+import java.util.Locale;
+import java.util.Properties;
+
+/*
+
+   Derby - Class org.apache.derby.iapi.util.PropertyUtil
+
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to you under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+ */
+
+
+
+public class Main {
+
+  private static char[] hex_table = {
+    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 
+    'a', 'b', 'c', 'd', 'e', 'f'
+};
+  
+  /**
+  Convert a byte array to a String with a hexidecimal format.
+  The String may be converted back to a byte array using fromHexString.
+  <BR>
+  For each byte (b) two characaters are generated, the first character
+  represents the high nibble (4 bits) in hexidecimal (<code>b & 0xf0</code>), the second character
+  represents the low nibble (<code>b & 0x0f</code>).
+  <BR>
+  The byte at <code>data[offset]</code> is represented by the first two characters in the returned String.
+
+  @param  data  byte array
+  @param  offset  starting byte (zero based) to convert.
+  @param  length  number of bytes to convert.
+
+  @return the String (with hexidecimal format) form of the byte array
+*/
+public static String toHexString(byte[] data, int offset, int length)
+{
+  StringBuffer s = new StringBuffer(length*2);
+  int end = offset+length;
+
+  for (int i = offset; i < end; i++)
+  {
+    int high_nibble = (data[i] & 0xf0) >>> 4;
+    int low_nibble = (data[i] & 0x0f);
+    s.append(hex_table[high_nibble]);
+    s.append(hex_table[low_nibble]);
+  }
+
+  return s.toString();
+}
+
+
+}
+
+
+
+
+<dataConfig>
+  <dataSource type="JdbcDataSource" 
+              driver="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://localhost/dbname" 
+              user="user-name" 
+              password="password"/>
+  <document>
+    <entity name="outer" 
+            query="select id,name,desc from mytable">
+       <field column="id" name="solr_id"/>
+       <field column="name" name="solr_name"/>
+       <field column="desc" name="solr_desc"/>
+       <entity name="inner"
+               query="select details from another_table where id ='${outer.id}'">
+              <field column="details" name="solr_details"/> 
+       </entity>
+    </entity>
+  </document>
+</dataConfig>
+-->
