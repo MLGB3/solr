@@ -138,6 +138,8 @@
    <field name="uk" type="string" indexed="true" stored="true"/>
    <field name="nt" type="text" indexed="true" stored="true"/>
    <field name="ac" type="text" indexed="true" stored="true"/>
+
+   <field name="evdesc" type="text" indexed="true" stored="true"/>
    <!-- MLGB End -->
 
    <!-- catch all text, containing all searchable fields (implemented
@@ -152,7 +154,6 @@
    <field name="institute" type="text" indexed="true" stored="false" multiValued="false"/>
 
    <field name="sws" type="string_ws" indexed="true" stored="false" multiValued="true"/>
-   <!--<field name="snws" type="string_nws" indexed="true" stored="false" multiValued="true"/>-->
 
    <!-- Here, default is used to create a "timestamp" field indicating
         When each document was indexed.
@@ -183,37 +184,21 @@
  <copyField source="nt" dest="text"/>
  <copyField source="ac" dest="text"/>
 
-<!-- <copyField source="pr" dest="nameSort"/>
- <copyField source="ml1" dest="nameSort"/>
- <copyField source="ml2" dest="nameSort"/>
- <copyField source="sm1" dest="nameSort"/>
- <copyField source="sm2" dest="nameSort"/>
- <copyField source="ev" dest="nameSort"/>
- <copyField source="soc" dest="nameSort"/>
- <copyField source="dt" dest="nameSort"/>
- <copyField source="pm" dest="nameSort"/>
- <copyField source="mc" dest="nameSort"/>
- <copyField source="uk" dest="nameSort"/>
- <copyField source="notes" dest="nameSort"/>
-
-
- <copyField source="library" dest="nameSort"/>
- <copyField source="library" dest="alphaNameSort"/>
-
- <copyField source="library" dest="spell"/>
--->
  <copyField source="ml1" dest="library"/>
  <copyField source="ml2" dest="library"/>
+
  <copyField source="pr" dest="provenance"/>
  <copyField source="ct" dest="provenance"/>
  <copyField source="ins" dest="provenance"/>
- <copyField source="soc" dest="authortitle"/>
- <copyField source="dt" dest="sws"/>
- <copyField source="ml1" dest="location"/>
- <copyField source="ml2" dest="institute"/>
- <!-- <copyField source="dt" dest="snws"/>
 
- -->
+ <copyField source="soc" dest="authortitle"/>
+
+ <copyField source="dt" dest="sws"/><!--why is it being copied to a field called 'string whitespace'?-->
+
+ <copyField source="ml1" dest="location"/>
+
+ <copyField source="ml2" dest="institute"/>
+
  <copyField source="sm1" dest="shelfmarks"/>
  <copyField source="sm2" dest="shelfmarks"/>
 </schema>
