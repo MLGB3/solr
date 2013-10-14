@@ -155,6 +155,8 @@
 
    <field name="sws" type="string_ws" indexed="true" stored="false" multiValued="true"/>
 
+   <field name="shelfmarksort" type="string" indexed="true" stored="false" multiValued="false"/>
+
    <!-- Here, default is used to create a "timestamp" field indicating
         When each document was indexed.
      -->

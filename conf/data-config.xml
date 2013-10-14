@@ -16,6 +16,7 @@
                     books_book.modern_location_2_id, 
                     books_book.shelfmark_1,
                     books_book.shelfmark_2,
+                    books_book.shelfmark_sort,
                     books_book.evidence_id,
                     books_book.author_title,
                     books_book.date,
@@ -32,6 +33,7 @@
       <field column="id" name="id"/>
       <field column="shelfmark_1"        name="sm1"/>
       <field column="shelfmark_2"        name="sm2"/>
+      <field column="shelfmark_sort"     name="shelfmarksort"/>
       <field column="evidence_id"        name="ev"/>
       <field column="author_title"       name="soc"/>
       <field column="date"               name="dt"/>
