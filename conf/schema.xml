@@ -8,37 +8,37 @@
         <tokenizer class="solr.WhitespaceTokenizerFactory"/>
       </analyzer>
     </fieldType>
-	<fieldType name="string_ws" class="solr.StrField" positionIncrementGap="100">
+  <fieldType name="string_ws" class="solr.StrField" positionIncrementGap="100">
       <analyzer type="index">
         <!--<tokenizer class="solr.PatternTokenizerFactory" pattern=". /()-" />
-		
-		<tokenizer class="org.apache.lucene.analysis.standard.StandardTokenizer" />
-		-->
+    
+    <tokenizer class="org.apache.lucene.analysis.standard.StandardTokenizer" />
+    -->
         <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-		<filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" preserveOriginal="1" />
+    <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" preserveOriginal="1" />
       </analyzer>
       <analyzer type="query">
         <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-		<filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" preserveOriginal="1" />
+    <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" preserveOriginal="1" />
       </analyzer>
     </fieldType>
         <!--
-	<fieldType name="string_nws" class="solr.StrField" positionIncrementGap="100">
+  <fieldType name="string_nws" class="solr.StrField" positionIncrementGap="100">
       <analyzer type="index">
 <tokenizer class="solr.PatternTokenizerFactory" pattern=". /()-" />
         <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-		
+    
         <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-		<filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" preserveOriginal="1" />
+    <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" preserveOriginal="1" />
       </analyzer>
       <analyzer type="query">
         <tokenizer class="solr.WhitespaceTokenizerFactory"/>
 
-		<filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" preserveOriginal="1" />
+    <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" preserveOriginal="1" />
       </analyzer>
     </fieldType>
 
-		-->
+    -->
 
     <fieldType name="text" class="solr.TextField" sortMissingLast="true" positionIncrementGap="100">
       <analyzer type="index">
@@ -46,7 +46,7 @@
 
         <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" preserveOriginal="1" />
         <filter class="solr.LowerCaseFilterFactory"/>
-		<filter class="solr.EnglishPorterFilterFactory"/>
+    <filter class="solr.EnglishPorterFilterFactory"/>
 
         <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
       </analyzer>
@@ -55,23 +55,23 @@
 
         <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="0" catenateNumbers="0" catenateAll="0" preserveOriginal="1" />
         <filter class="solr.LowerCaseFilterFactory"/>
-		<filter class="solr.EnglishPorterFilterFactory"/>
+    <filter class="solr.EnglishPorterFilterFactory"/>
 
         <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
       </analyzer>
     </fieldType>
 <!--
     <fieldType name="text_fr" class="solr.TextField" positionIncrementGap="100">
-		<analyzer type="query">
-			<tokenizer class="Solr.StandardTokenizerFactory"/>
-			<filter class="Solr.ISOLatin1AccentFilterFactory"/>
-			<filter class="Solr.StandardFilterFactory"/>
-			<filter class="Solr.LowerCaseFilterFactory"/>
-			<filter class="Solr.StopFilterFactory" words="french-stopwords.txt" ignoreCase="true"/>
-			<filter class="Solr.SnowballPorterFilterFactory" language="French"/>  TODO
-			<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+    <analyzer type="query">
+      <tokenizer class="Solr.StandardTokenizerFactory"/>
+      <filter class="Solr.ISOLatin1AccentFilterFactory"/>
+      <filter class="Solr.StandardFilterFactory"/>
+      <filter class="Solr.LowerCaseFilterFactory"/>
+      <filter class="Solr.StopFilterFactory" words="french-stopwords.txt" ignoreCase="true"/>
+      <filter class="Solr.SnowballPorterFilterFactory" language="French"/>  TODO
+      <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
 
-		 </analyzer>
+     </analyzer>
 
     </fieldType>
 -->
@@ -139,6 +139,10 @@
    <field name="nt" type="text" indexed="true" stored="true"/>
    <field name="ac" type="text" indexed="true" stored="true"/>
 
+   <field name="ml1_initial" type="string" indexed="true" stored="true"/>
+   <field name="ml2_initial" type="string" indexed="true" stored="true"/>
+   <field name="pr_initial" type="string" indexed="true" stored="true"/>
+
    <field name="evdesc" type="text" indexed="true" stored="true"/>
    <!-- MLGB End -->
 
@@ -156,6 +160,12 @@
    <field name="sws" type="string_ws" indexed="true" stored="false" multiValued="true"/>
 
    <field name="shelfmarksort" type="string" indexed="true" stored="false" multiValued="false"/>
+
+   <field name="ml1sort" type="alphaOnlySort" indexed="true" stored="false"/>
+   <field name="ml2sort" type="alphaOnlySort" indexed="true" stored="false"/>
+   <field name="prsort" type="alphaOnlySort" indexed="true" stored="false"/>
+   <field name="ctsort" type="alphaOnlySort" indexed="true" stored="false"/>
+   <field name="inssort" type="alphaOnlySort" indexed="true" stored="false"/>
 
    <!-- Here, default is used to create a "timestamp" field indicating
         When each document was indexed.
@@ -203,4 +213,12 @@
 
  <copyField source="sm1" dest="shelfmarks"/>
  <copyField source="sm2" dest="shelfmarks"/>
+
+ <!-- fields to sort results without taking account of case or leading/trailing whitespace -->
+ <copyField source="ml1" dest="ml1sort"   />
+ <copyField source="ml2" dest="ml2sort"   />
+ <copyField source="pr"  dest="prsort"    />
+ <copyField source="ct"  dest="ctsort"    />
+ <copyField source="ins" dest="inssort"   />
+
 </schema>

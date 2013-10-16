@@ -45,30 +45,36 @@
 
       <entity name="pr"
         query="select provenance, 
+                      upper( substr( provenance, 1, 1 ) ) as provenance_initial,
                       IFNULL(county,'') as county, 
                       IFNULL(institution,'') as institution 
                from books_provenance 
                where id ='${books.provenance_id}'">
 
         <field column="provenance" name="pr"/>
+        <field column="provenance_initial" name="pr_initial"/>
         <field column="county" name="ct"/>
         <field column="institution" name="ins"/>
       </entity>
 
       <entity name="ml1"
-        query="select modern_location_1 
+        query="select modern_location_1,
+                      upper( substr( modern_location_1, 1, 1 ) ) as modern_location_1_initial
                from books_modern_location_1 
                where id ='${books.modern_location_1_id}'">
 
         <field column="modern_location_1" name="ml1"/> 
+        <field column="modern_location_1_initial" name="ml1_initial"/> 
       </entity>
 
       <entity name="ml2"
-        query="select modern_location_2 
+        query="select modern_location_2,
+                      upper( substr( modern_location_2, 1, 1 ) ) as modern_location_2_initial
                from books_modern_location_2 
                where id ='${books.modern_location_2_id}'">
 
         <field column="modern_location_2" name="ml2"/> 
+        <field column="modern_location_2_initial" name="ml2_initial"/> 
       </entity>
 
       <entity name="evd"
