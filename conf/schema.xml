@@ -143,6 +143,9 @@
    <field name="ml2_initial" type="string" indexed="true" stored="true"/>
    <field name="pr_initial" type="string" indexed="true" stored="true"/>
 
+   <field name="pr_full" type="string" indexed="true" stored="true"/>
+   <field name="ml_full" type="string" indexed="true" stored="true"/>
+
    <field name="evdesc" type="text" indexed="true" stored="true"/>
    <!-- MLGB End -->
 

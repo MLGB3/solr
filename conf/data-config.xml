@@ -46,6 +46,12 @@
       <entity name="pr"
         query="select provenance, 
                       upper( substr( provenance, 1, 1 ) ) as provenance_initial,
+                      replace( replace(
+                      concat( ifnull( provenance, '' ),
+                              ifnull( concat( ', ', county ), '' ),
+                              ifnull( concat( ', ', institution ), '' )), 
+                      '\n', '' ), '\r', '' )
+                      as provenance_full,
                       IFNULL(county,'') as county, 
                       IFNULL(institution,'') as institution 
                from books_provenance 
@@ -53,6 +59,7 @@
 
         <field column="provenance" name="pr"/>
         <field column="provenance_initial" name="pr_initial"/>
+        <field column="provenance_full" name="pr_full"/>
         <field column="county" name="ct"/>
         <field column="institution" name="ins"/>
       </entity>
@@ -75,6 +82,21 @@
 
         <field column="modern_location_2" name="ml2"/> 
         <field column="modern_location_2_initial" name="ml2_initial"/> 
+      </entity>
+
+      <entity name="ml1_and_2"
+        query="select replace( replace( 
+                      concat( ifnull( (select modern_location_2
+                                       from books_modern_location_2 
+                                       where id ='${books.modern_location_2_id}'), '' ),
+                              ifnull(  concat( ', ', 
+                                       (select modern_location_1
+                                       from books_modern_location_1 
+                                       where id ='${books.modern_location_1_id}')), '' )),
+               '\n', '' ), '\r', '' )
+               as modern_location_full">
+
+        <field column="modern_location_full" name="ml_full"/> 
       </entity>
 
       <entity name="evd"
