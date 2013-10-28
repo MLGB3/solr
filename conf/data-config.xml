@@ -107,6 +107,17 @@
         <field column="evidence_description" name="evdesc"/> 
       </entity>
 
+
+      <entity name="img"
+        query="select image, title, caption
+               from feeds_photo
+               where item_id ='${books.id}'">
+
+        <field column="image" name="imageurl"/> 
+        <field column="title" name="imagetitle"/> 
+        <field column="caption" name="imagecaption"/> 
+      </entity>
+
     </entity> <!-- end entity "books" -->
   </document>
 </dataConfig>
