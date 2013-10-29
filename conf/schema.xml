@@ -131,13 +131,20 @@
    <field name="sm1" type="string" indexed="true" stored="true"/>
    <field name="sm2" type="string" indexed="true" stored="true"/>
    <field name="ev" type="string" indexed="true" stored="true"/>
+   <field name="evn" type="string" indexed="true" stored="true"/>
    <field name="soc" type="string" indexed="true" stored="true"/>
    <field name="dt" type="string" indexed="true" stored="true"/>
    <field name="pm" type="string" indexed="true" stored="true"/>
    <field name="mc" type="string" indexed="true" stored="true"/>
    <field name="uk" type="string" indexed="true" stored="true"/>
+
+   <field name="printed_book" type="string" indexed="true" stored="true"/>
+
    <field name="nt" type="text" indexed="true" stored="true"/>
-   <field name="ac" type="text" indexed="true" stored="true"/>
+   <field name="own" type="text" indexed="true" stored="true"/>
+
+   <field name="contents" type="text" indexed="true" stored="true" multiValued="true" />
+   <field name="content_urls" type="string" indexed="false" stored="true" multiValued="true" />
 
    <field name="ml1_initial" type="string" indexed="true" stored="true"/>
    <field name="ml2_initial" type="string" indexed="true" stored="true"/>
@@ -201,7 +208,9 @@
  <copyField source="dt" dest="text"/>
  <copyField source="mc" dest="text"/>
  <copyField source="nt" dest="text"/>
- <copyField source="ac" dest="text"/>
+ <copyField source="evn" dest="text"/>
+ <copyField source="contents" dest="text"/>
+ <copyField source="own" dest="text"/>
 
  <copyField source="ml1" dest="library"/>
  <copyField source="ml2" dest="library"/>
