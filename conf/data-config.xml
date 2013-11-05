@@ -22,12 +22,17 @@
                     books_book.date,
                     books_book.pressmark,
                     books_book.medieval_catalogue,
+                    books_book.ownership,
                     books_book.unknown,
                     books_book.notes,
                     books_book.evidence_notes,
-                    books_book.pr_bk
+                    books_book.pr_bk,
+                    IFNULL( books_contains.contains, '' ) as contents,
+                    IFNULL( books_contains.urls, '' ) as content_urls 
              from 
-                    books_book"> 
+                    books_book 
+             left join 
+                    books_contains on book_id_id = books_book.id" >
 
       <field column="id" name="id"/>
       <field column="shelfmark_1"        name="sm1"/>
@@ -38,20 +43,13 @@
       <field column="date"               name="dt"/>
       <field column="pressmark"          name="pm"/>
       <field column="medieval_catalogue" name="mc"/>
+      <field column="ownership"          name="own"/>
       <field column="unknown"            name="uk"/>
       <field column="notes"              name="nt"/>
       <field column="evidence_notes"     name="evn"/>
       <field column="pr_bk"              name="printed_book"/>
-
-      <entity name="contents"
-        query="select ifnull( contains, '' ), 
-                      ifnull( urls, '' )
-               from books_contains 
-               where book_id_id ='${books.id}'">
-
-        <field column="contains" name="contents"/> 
-        <field column="urls" name="content_urls"/> 
-      </entity>
+      <field column="contents"           name="contents"/> 
+      <field column="content_urls"       name="content_urls"/> 
 
 
       <entity name="pr"
