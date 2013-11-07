@@ -27,13 +27,8 @@
                     books_book.unknown,
                     books_book.notes,
                     books_book.evidence_notes,
-                    books_book.pr_bk,
-                    IFNULL( books_contains.contains, '' ) as contents,
-                    IFNULL( books_contains.urls, '' ) as content_urls 
-             from 
-                    books_book 
-             left join 
-                    books_contains on book_id_id = books_book.id" >
+                    books_book.pr_bk
+             from books_book" >
 
       <field column="id" name="id"/>
       <field column="shelfmark_1"        name="sm1"/>
@@ -50,9 +45,15 @@
       <field column="notes"              name="nt"/>
       <field column="evidence_notes"     name="evn"/>
       <field column="pr_bk"              name="printed_book"/>
-      <field column="contents"           name="contents"/> 
-      <field column="content_urls"       name="content_urls"/> 
 
+      <entity name="cont"
+        query="select contains, urls
+               from books_contains 
+               where book_id_id ='${books.id}'">
+
+        <field column="contains" name="contents"/> 
+        <field column="urls" name="content_urls"/> 
+      </entity>
 
       <entity name="pr"
         query="select provenance, 
