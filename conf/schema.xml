@@ -174,6 +174,7 @@
    <field name="sws" type="string_ws" indexed="true" stored="false" multiValued="true"/>
 
    <field name="shelfmarksort" type="string" indexed="true" stored="false" multiValued="false"/>
+   <field name="datesort" type="string" indexed="true" stored="false" multiValued="false"/>
 
    <field name="ml1sort" type="alphaOnlySort" indexed="true" stored="false"/>
    <field name="ml2sort" type="alphaOnlySort" indexed="true" stored="false"/>
