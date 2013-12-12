@@ -22,7 +22,13 @@
                     books_book.date,
                     books_book.date_sort,
                     books_book.pressmark,
-                    books_book.medieval_catalogue,
+                    case 
+                      when books_book.medieval_catalogue > '' then 
+                        medieval_catalogue
+                      else 
+                        books_book.medieval_catalogue_notes 
+                    end
+                      as medieval_catalogue,
                     books_book.ownership,
                     books_book.unknown,
                     books_book.notes,
