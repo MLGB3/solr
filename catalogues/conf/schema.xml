@@ -128,8 +128,8 @@
 
    <!-- from the 'entries' table -->
    <field name="a_letter"             type="alphaOnlySort" indexed="true" stored="true"/>
-   <field name="s_entry_name"         type="string"        indexed="true" stored="true"/>
-   <field name="s_entry_xref_name"    type="string"        indexed="true" stored="true"/>
+   <field name="s_author_name"        type="string"        indexed="true" stored="true"/>
+   <field name="s_author_xref_name"   type="string"        indexed="true" stored="true"/>
    <field name="s_entry_biblio_line"  type="string"        indexed="true" stored="true"/>
    <field name="s_entry_biblio_block" type="string"        indexed="true" stored="true"/>
 
@@ -150,7 +150,7 @@
    <!-- from the 'documents' table -->
    <field name="s_document_code"      type="string" indexed="true" stored="true"/>
    <field name="s_document_code_sort" type="string" indexed="true" stored="true"/>
-   <field name="i_seqno_in_document"  type="int"    indexed="true" stored="true"/>
+   <field name="s_seqno_in_document"  type="string" indexed="true" stored="true"/>
    <field name="s_document_name"      type="string" indexed="true" stored="true"/>
    <field name="d_document_start"     type="date"   indexed="true" stored="true"/>
    <field name="d_document_end"       type="date"   indexed="true" stored="true"/>
@@ -164,10 +164,10 @@
    <field name="text" type="text" indexed="true" stored="false" multiValued="true"/>
 
    <!-- other searchable fields, combining the string fields above -->
-   <field name="t_author"       type="text" indexed="true" stored="false" multiValued="false"/>
-   <field name="t_title"        type="text" indexed="true" stored="false" multiValued="false"/>
+   <field name="t_author"       type="text" indexed="true" stored="false" multiValued="true"/>
+   <field name="t_title"        type="text" indexed="true" stored="false" multiValued="true"/>
    <field name="t_library"      type="text" indexed="true" stored="false" multiValued="true"/>
-   <field name="t_bibliography" type="text" indexed="true" stored="false" multiValued="false"/>
+   <field name="t_bibliography" type="text" indexed="true" stored="false" multiValued="true"/>
 
    <!-- sort fields -->
    <field name="a_library_type_sort" type="alphaOnlySort" indexed="true" stored="false"/>
@@ -189,8 +189,8 @@
 
  <solrQueryParser defaultOperator="AND"/>
 
- <copyField source="s_entry_name"          dest="text"/>
- <copyField source="s_entry_xref_name"     dest="text"/>
+ <copyField source="s_author_name"         dest="text"/>
+ <copyField source="s_author_xref_name"    dest="text"/>
  <copyField source="s_entry_biblio_line"   dest="text"/>
  <copyField source="s_entry_biblio_block"  dest="text"/>
 
@@ -209,8 +209,8 @@
  <copyField source="s_library_loc"   dest="text"/>
 
  <!-- other combinations providing searchable fields -->
- <copyField source="s_entry_name"          dest="t_author"/>
- <copyField source="s_entry_xref_name"     dest="t_author"/>
+ <copyField source="s_author_name"         dest="t_author"/>
+ <copyField source="s_author_xref_name"    dest="t_author"/>
  <copyField source="s_role_in_book"        dest="t_author"/>
  <copyField source="s_problem"             dest="t_author"/>
 
