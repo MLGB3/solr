@@ -121,27 +121,41 @@
  <fields>
    <field name="alphaNameSort" type="alphaOnlySort" indexed="true" stored="false"/>
 
-   <!--MLGB Start-->
+   <!-- =================================================================================== -->
+   <!-- Start MLGB primary fields, mostly strings, taken straight from the database.        -->
+   <!-- These string fields will generally be copied into text fields for easier searching. -->
+   <!-- =================================================================================== -->
+
+   <!-- (The 2- and 3-letter names in this first block were chosen by Xiaofeng at the start of the
+        project in 2009, and it's not very easy to change them now there is a lot of code in place. 
+        Will provide a comment beside each cryptic one to try and clarify. SB, Feb 2014.) -->
+
    <field name="id" type="string" indexed="true" stored="true" required="true" /> 
-   <field name="pr" type="string" indexed="true" stored="true"/>
-   <field name="ct" type="string" indexed="true" stored="true"/>
-   <field name="ins" type="string" indexed="true" stored="true"/>
-   <field name="ml1" type="string" indexed="true" stored="true"/>
-   <field name="ml2" type="string" indexed="true" stored="true"/>
-   <field name="sm1" type="string" indexed="true" stored="true"/>
-   <field name="sm2" type="string" indexed="true" stored="true"/>
-   <field name="ev" type="string" indexed="true" stored="true"/>
-   <field name="evn" type="string" indexed="true" stored="true"/>
-   <field name="soc" type="string" indexed="true" stored="true"/>
-   <field name="dt" type="string" indexed="true" stored="true"/>
-   <field name="pm" type="string" indexed="true" stored="true"/>
-   <field name="mc" type="string" indexed="true" stored="true"/>
-   <field name="uk" type="string" indexed="true" stored="true"/>
+
+   <field name="pr" type="string" indexed="true" stored="true"/> <!-- provenance, town etc --> 
+   <field name="ct" type="string" indexed="true" stored="true"/> <!-- provenance, county -->
+   <field name="ins" type="string" indexed="true" stored="true"/><!-- provenance, institution name --> 
+
+   <field name="ml1" type="string" indexed="true" stored="true"/><!-- modern location, city etc -->
+   <field name="ml2" type="string" indexed="true" stored="true"/><!-- modern location, institution name-->
+
+   <field name="sm1" type="string" indexed="true" stored="true"/><!-- shelfmark part 1 -->
+   <field name="sm2" type="string" indexed="true" stored="true"/><!-- shelfmark part 2 -->
+
+   <field name="ev" type="string" indexed="true" stored="true"/> <!-- evidence code -->
+   <field name="evn" type="string" indexed="true" stored="true"/><!-- notes on evidence -->
+
+   <field name="soc" type="string" indexed="true" stored="true"/><!-- 'suggestion of contents', i.e.
+                                                                      basically author/title -->
+   <field name="dt" type="string" indexed="true" stored="true"/> <!-- date (string such as 's. xii') -->
+   <field name="pm" type="string" indexed="true" stored="true"/> <!-- pressmark -->
+   <field name="mc" type="string" indexed="true" stored="true"/> <!-- medieval catalogue e.g. BP1.21 -->
+   <field name="uk" type="string" indexed="true" stored="true"/> <!-- 'unknown' i.e. query -->
 
    <field name="printed_book" type="string" indexed="true" stored="true"/>
 
-   <field name="nt" type="text" indexed="true" stored="true"/>
-   <field name="own" type="text" indexed="true" stored="true"/>
+   <field name="nt" type="text" indexed="true" stored="true"/>  <!-- notes -->
+   <field name="own" type="text" indexed="true" stored="true"/> <!-- ownership -->
 
    <field name="contents" type="text" indexed="true" stored="true" multiValued="true" />
    <field name="content_urls" type="string" indexed="false" stored="true" multiValued="true" />
@@ -157,19 +171,28 @@
    <field name="imagetitle" type="string" indexed="false" stored="true" multiValued="true" />
    <field name="imagecaption" type="string" indexed="false" stored="true" multiValued="true" />
 
-   <field name="evdesc" type="text" indexed="true" stored="true"/>
-   <!-- MLGB End -->
+   <field name="evdesc" type="text" indexed="true" stored="true"/><!-- description of evidence type -->
 
-   <!-- catch all text, containing all searchable fields (implemented
-        via copyField further on in this schema  -->
+   <!-- End of primary fields -->
+
+   <!-- =============================================================================== -->
+   <!-- Start secondary fields, to be derived from the primary ones above via copyField -->
+   <!-- =============================================================================== -->
+
+   <!-- catch all text, containing all searchable fields -->
    <field name="text" type="text" indexed="true" stored="false" multiValued="true"/>
 
+   <!-- individual secondary fields -->
    <field name="library" type="text" indexed="true" stored="false" multiValued="true"/>
    <field name="shelfmarks" type="text" indexed="true" stored="false" multiValued="true"/>
    <field name="provenance" type="text" indexed="true" stored="false" multiValued="true"/>
    <field name="authortitle" type="text" indexed="true" stored="false" multiValued="false"/>
    <field name="location" type="text" indexed="true" stored="false" multiValued="false"/>
    <field name="institute" type="text" indexed="true" stored="false" multiValued="false"/>
+
+   <field name="evidence_notes" type="text" indexed="true" stored="false"/><!-- notes on evidence -->
+   <field name="pressmark" type="text" indexed="true" stored="false"/><!-- copy from 'pm' -->
+   <field name="medieval_catalogue" type="text" indexed="true" stored="false"/><!-- copy from 'mc' -->
 
    <field name="sws" type="string_ws" indexed="true" stored="false" multiValued="true"/>
 
@@ -182,6 +205,10 @@
    <field name="ctsort" type="alphaOnlySort" indexed="true" stored="false"/>
    <field name="inssort" type="alphaOnlySort" indexed="true" stored="false"/>
 
+   <!-- End definition of secondary fields -->
+   <!-- ======================================================================== -->
+
+
    <!-- Here, default is used to create a "timestamp" field indicating
         When each document was indexed.
      -->
@@ -190,6 +217,7 @@
    <dynamicField name="*_s"  type="string"  indexed="true"  stored="true"/>
    <dynamicField name="*_t"  type="text"    indexed="true"  stored="true"/>
    <dynamicField name="*_dt" type="date"    indexed="true"  stored="true"/>
+
  </fields>
 
  <uniqueKey>id</uniqueKey>
@@ -198,6 +226,9 @@
 
  <solrQueryParser defaultOperator="AND"/>
 
+ <!-- ======================= -->
+ <!-- Start copyField section -->
+ <!-- ======================= -->
  <copyField source="pr" dest="text"/>
  <copyField source="ct" dest="text"/>
  <copyField source="ins" dest="text"/>
@@ -231,6 +262,10 @@
  <copyField source="sm1" dest="shelfmarks"/>
  <copyField source="sm2" dest="shelfmarks"/>
 
+ <copyField source="evn" dest="evidence_notes" />
+ <copyField source="pm" dest="pressmark" />
+ <copyField source="mc" dest="medieval_catalogue" />
+
  <!-- fields to sort results without taking account of case or leading/trailing whitespace -->
  <copyField source="ml1" dest="ml1sort"   />
  <copyField source="ml2" dest="ml2sort"   />
@@ -238,4 +273,7 @@
  <copyField source="ct"  dest="ctsort"    />
  <copyField source="ins" dest="inssort"   />
 
+ <!-- ===================== -->
+ <!-- End copyField section -->
+ <!-- ===================== -->
 </schema>
