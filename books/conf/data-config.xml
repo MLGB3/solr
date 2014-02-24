@@ -17,7 +17,13 @@
                     books_book.shelfmark_1,
                     books_book.shelfmark_2,
                     books_book.shelfmark_sort,
-                    books_book.evidence_id,
+                    case 
+                      when trim( books_book.evidence_id ) = '' then
+                        'blank'
+                      else 
+                        trim( books_book.evidence_id )
+                    end 
+                      as evidence_id,
                     books_book.author_title,
                     books_book.date,
                     books_book.date_sort,
