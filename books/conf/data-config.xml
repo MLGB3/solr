@@ -126,7 +126,10 @@
       <entity name="evd"
         query="select evidence_description 
                from books_evidence
-               where evidence ='${books.evidence_id}'">
+               where evidence ='${books.evidence_id}'
+               union select evidence_description
+               from books_evidence
+               where trim(evidence) = '' and '${books.evidence_id}' = 'blank'">
 
         <field column="evidence_description" name="evdesc"/> 
       </entity>
