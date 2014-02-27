@@ -154,6 +154,7 @@
    <field name="s_document_name"      type="string" indexed="true" stored="true"/>
    <field name="d_document_start"     type="date"   indexed="true" stored="true"/>
    <field name="d_document_end"       type="date"   indexed="true" stored="true"/>
+   <field name="s_document_type"      type="string" indexed="true" stored="true"/>
    <!-- doc_group_type_name -->
    <field name="s_library_type"       type="string" indexed="true" stored="true"/>
    <!-- doc_group_name -->
@@ -205,6 +206,7 @@
 
  <copyField source="s_document_code" dest="text"/>
  <copyField source="s_document_name" dest="text"/>
+ <copyField source="s_document_type" dest="text"/>
  <copyField source="s_library_type"  dest="text"/>
  <copyField source="s_library_loc"   dest="text"/>
 

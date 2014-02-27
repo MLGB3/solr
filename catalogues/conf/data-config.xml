@@ -139,7 +139,12 @@
 
 
       <entity name="document"
-        query="select doc_group_type_name, doc_group_name, document_name, start_date, end_date
+        query="select doc_group_type_name, 
+                      doc_group_name, 
+                      document_name, 
+                      start_date, 
+                      end_date, 
+                      document_type
                from index_medieval_documents_view 
                where document_code ='${catalogues.document_code}'">
 
@@ -148,6 +153,7 @@
         <field column="document_name"       name="s_document_name"/> 
         <field column="start_date"          name="d_document_start"/> 
         <field column="end_date"            name="d_document_end"/> 
+        <field column="document_type"       name="s_document_type"/> 
       </entity>
 
     </entity> <!-- end entity "catalogues" -->
