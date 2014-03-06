@@ -1,8 +1,9 @@
 <dataConfig>
 
  <dataSource type="JdbcDataSource" 
+             encoding="UTF-8"
              driver="com.mysql.jdbc.Driver" 
-             url="jdbc:mysql://localhost:3306/mlgb" 
+             url="jdbc:mysql://localhost:3306/mlgb?useUnicode=true" 
              batchSize="-1" 
              convertType="true" 
              user="mlgbAdmin" 
@@ -32,7 +33,7 @@
                     c.document_code,
                     c.document_code_sort,
                     c.seqno_in_document
-             from   index_entries e, index_entry_books b, index_entry_copies c
+             from   u_index_entries e, u_index_entry_books b, u_index_entry_copies c
              where  e.entry_id = b.entry_id
              and    b.entry_id = c.entry_id and b.entry_book_count = c.entry_book_count
              and    b.title_of_book > '' 
@@ -58,7 +59,7 @@
                     c.document_code,
                     c.document_code_sort,
                     c.seqno_in_document
-             from   index_entries e, index_entry_books b, index_entry_copies c
+             from   u_index_entries e, u_index_entry_books b, u_index_entry_copies c
              where  e.entry_id = b.entry_id
              and    b.entry_id = c.entry_id and b.entry_book_count = c.entry_book_count
              and    b.title_of_book = ''
@@ -84,7 +85,7 @@
                     '' /* no document_code */,
                     '' /* no document_code_sort */,
                     null /* no seqno_in_document */
-             from   index_entries e, index_entry_books b
+             from   u_index_entries e, u_index_entry_books b
              where  e.entry_id = b.entry_id
              and    not exists (select * from index_entry_copies 
                                 where index_entry_copies.entry_id = b.entry_id
@@ -111,7 +112,7 @@
                     '' /* no document_code */,
                     '' /* no document_code_sort */,
                     null /* no seqno_in_document */
-             from   index_entries e
+             from   u_index_entries e
              where  not exists (select * from index_entry_books 
                                 where index_entry_books.entry_id = e.entry_id)" >
 
@@ -145,7 +146,7 @@
                       start_date, 
                       end_date, 
                       document_type
-               from index_medieval_documents_view 
+               from u_index_medieval_documents_view 
                where document_code ='${catalogues.document_code}'">
 
         <field column="doc_group_type_name" name="s_library_type"/> 
