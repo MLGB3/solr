@@ -127,9 +127,9 @@
    <field name="id" type="string" indexed="true" stored="true" required="true" /> 
 
    <!-- from the 'entries' table -->
-   <field name="a_letter"             type="alphaOnlySort" indexed="true" stored="true"/>
+   <field name="s_entry_name"         type="string"        indexed="true" stored="true"/>
+   <field name="s_entry_xref_name"    type="string"        indexed="true" stored="true"/>
    <field name="s_author_name"        type="string"        indexed="true" stored="true"/>
-   <field name="s_author_xref_name"   type="string"        indexed="true" stored="true"/>
    <field name="s_entry_biblio_line"  type="string"        indexed="true" stored="true"/>
    <field name="s_entry_biblio_block" type="string"        indexed="true" stored="true"/>
 
@@ -146,11 +146,13 @@
    <field name="s_printed_yn"         type="string" indexed="true" stored="true"/>
    <field name="s_survives_yn"        type="string" indexed="true" stored="true"/>
    <field name="s_uncertain_yn"       type="string" indexed="true" stored="true"/>
+   <field name="s_duplicate_title_yn" type="string" indexed="true" stored="true"/>
 
    <!-- from the 'documents' table -->
    <field name="s_document_code"      type="string" indexed="true" stored="true"/>
    <field name="s_document_code_sort" type="string" indexed="true" stored="true"/>
    <field name="s_seqno_in_document"  type="string" indexed="true" stored="true"/>
+   <field name="s_seqno_in_doc_sort"  type="string" indexed="true" stored="true"/>
    <field name="s_document_name"      type="string" indexed="true" stored="true"/>
    <field name="d_document_start"     type="date"   indexed="true" stored="true"/>
    <field name="d_document_end"       type="date"   indexed="true" stored="true"/>
@@ -190,8 +192,8 @@
 
  <solrQueryParser defaultOperator="AND"/>
 
- <copyField source="s_author_name"         dest="text"/>
- <copyField source="s_author_xref_name"    dest="text"/>
+ <copyField source="s_entry_name"          dest="text"/>
+ <copyField source="s_entry_xref_name"     dest="text"/>
  <copyField source="s_entry_biblio_line"   dest="text"/>
  <copyField source="s_entry_biblio_block"  dest="text"/>
 
@@ -212,7 +214,6 @@
 
  <!-- other combinations providing searchable fields -->
  <copyField source="s_author_name"         dest="t_author"/>
- <copyField source="s_author_xref_name"    dest="t_author"/>
  <copyField source="s_role_in_book"        dest="t_author"/>
  <copyField source="s_problem"             dest="t_author"/>
 

@@ -1,163 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- here is where I will map all the fields on my xml using xpath -->
+
 <dataConfig>
-
- <dataSource type="JdbcDataSource" 
-             encoding="UTF-8"
-             driver="com.mysql.jdbc.Driver" 
-             url="jdbc:mysql://localhost:3306/mlgb?useUnicode=true" 
-             batchSize="-1" 
-             convertType="true" 
-             user="mlgbAdmin" 
-             password="blessing"/>
-
+  <dataSource type="FileDataSource" encoding="UTF-8"/>
   <document>
-    <entity name="catalogues" 
+      <entity name="catalogues"
+        processor="XPathEntityProcessor"
+        stream="true"
+        forEach="/doc/entry/"
+        url="/home/xiaofeng/index/authortitle_to_solr.xml"
+        transformer="RegexTransformer,DateFormatTransformer"
+      >        
+        <field column="id" xpath="/doc/entry/@id"/>
+        <field column="s_author_name" xpath="/doc/entry/entry_name"/>
 
-      query="select 
-                    /* 1. Full entry with author, title of book, and copies */
-                    e.entry_id * 1000000 + b.entry_book_count * 1000 + c.copy_count as entry_id, 
-                    e.letter,
-                    e.entry_name, /*author*/
-                    e.xref_name,  /*author*/
-                    e.entry_biblio_line,
-                    e.entry_biblio_block,
-                    b.title_of_book,
-                    b.xref_title_of_book,
-                    b.book_biblio_line,
-                    b.role_in_book,
-                    b.problem,
-                    c.copy_code,
-                    c.copy_notes,
-                    c.survives_yn,
-                    c.printed_yn,
-                    c.uncertain_yn,
-                    c.document_code,
-                    c.document_code_sort,
-                    c.seqno_in_document
-             from   u_index_entries e, u_index_entry_books b, u_index_entry_copies c
-             where  e.entry_id = b.entry_id
-             and    b.entry_id = c.entry_id and b.entry_book_count = c.entry_book_count
-             and    b.title_of_book > '' 
+        <!-- from the 'entries' table -->
+        <field column="s_entry_name"         xpath="/doc/entry/s_entry_name" />
+        <field column="s_entry_xref_name"    xpath="/doc/entry/s_entry_xref_name" />
+        <field column="s_author_name"        xpath="/doc/entry/s_author_name" />
+        <field column="s_entry_biblio_line"  xpath="/doc/entry/s_entry_biblio_line" />
+        <field column="s_entry_biblio_block" xpath="/doc/entry/s_entry_biblio_block" />
 
-             union select 
-                    /* 2. No author, entry name is title of book, has copies */
-                    e.entry_id * 1000000 + b.entry_book_count * 1000 + c.copy_count, 
-                    e.letter,
-                    '' /*author name is blank in this case: the entry refers to title of book */,
-                    '' /* ditto for author cross-reference name */,
-                    e.entry_biblio_line,
-                    e.entry_biblio_block,
-                    e.entry_name /* = title of book */,
-                    e.xref_name  /* cross-reference title of book */,
-                    b.book_biblio_line,
-                    b.role_in_book,
-                    b.problem,
-                    c.copy_code,
-                    c.copy_notes,
-                    c.survives_yn,
-                    c.printed_yn,
-                    c.uncertain_yn,
-                    c.document_code,
-                    c.document_code_sort,
-                    c.seqno_in_document
-             from   u_index_entries e, u_index_entry_books b, u_index_entry_copies c
-             where  e.entry_id = b.entry_id
-             and    b.entry_id = c.entry_id and b.entry_book_count = c.entry_book_count
-             and    b.title_of_book = ''
+        <!-- from the 'books' table -->
+        <field column="s_title_of_book"      xpath="/doc/entry/s_title_of_book" />
+        <field column="s_xref_title_of_book" xpath="/doc/entry/s_xref_title_of_book" />
+        <field column="s_role_in_book"       xpath="/doc/entry/s_role_in_book" />
+        <field column="s_problem"            xpath="/doc/entry/s_problem" />
+        <field column="s_book_biblio_line"   xpath="/doc/entry/s_book_biblio_line" />
 
-             union select 
-                    /* 3. Entry with author and book but no copies */
-                    e.entry_id * 1000000 + b.entry_book_count * 1000, 
-                    e.letter,
-                    e.entry_name /* author */,
-                    e.xref_name  /* author xref */,
-                    e.entry_biblio_line,
-                    e.entry_biblio_block,
-                    b.title_of_book,
-                    b.xref_title_of_book,
-                    b.book_biblio_line,
-                    b.role_in_book,
-                    b.problem,
-                    '' /* no copy_code */,
-                    '' /* no copy_notes */,
-                    '' /* no survives_yn */,
-                    '' /* no printed_yn */,
-                    '' /* no uncertain_yn */,
-                    '' /* no document_code */,
-                    '' /* no document_code_sort */,
-                    null /* no seqno_in_document */
-             from   u_index_entries e, u_index_entry_books b
-             where  e.entry_id = b.entry_id
-             and    not exists (select * from index_entry_copies 
-                                where index_entry_copies.entry_id = b.entry_id
-                                and index_entry_copies.entry_book_count = b.entry_book_count)
+        <!-- from the 'copies' table -->
+        <field column="s_copy_code"          xpath="/doc/entry/s_copy_code" />
+        <field column="s_copy_notes"         xpath="/doc/entry/s_copy_notes" />
+        <field column="s_printed_yn"         xpath="/doc/entry/s_printed_yn" />
+        <field column="s_survives_yn"        xpath="/doc/entry/s_survives_yn" />
+        <field column="s_uncertain_yn"       xpath="/doc/entry/s_uncertain_yn" />
+        <field column="s_duplicate_title_yn" xpath="/doc/entry/s_duplicate_title_yn" />
 
-             union select 
-                    /* 4. Author cross-reference record only, no books, no copies */
-                    e.entry_id * 1000000, 
-                    e.letter,
-                    e.entry_name,
-                    e.xref_name,
-                    e.entry_biblio_line,
-                    e.entry_biblio_block,
-                    '' /* no title_of_book */,
-                    '' /* no xref_title_of_book */,
-                    '' /* no book biblio line */,
-                    '' /* no role_in_book */,
-                    '' /* no problem */,
-                    '' /* no copy_code */,
-                    '' /* no copy_notes */,
-                    '' /* no survives_yn */,
-                    '' /* no printed_yn */,
-                    '' /* no uncertain_yn */,
-                    '' /* no document_code */,
-                    '' /* no document_code_sort */,
-                    null /* no seqno_in_document */
-             from   u_index_entries e
-             where  not exists (select * from index_entry_books 
-                                where index_entry_books.entry_id = e.entry_id)" >
+        <!-- from the 'documents' table -->
+        <field column="s_document_code"      xpath="/doc/entry/s_document_code" />
+        <field column="s_document_code_sort" xpath="/doc/entry/s_document_code_sort" />
+        <field column="s_seqno_in_document"  xpath="/doc/entry/s_seqno_in_document" />
+        <field column="s_seqno_in_doc_sort"  xpath="/doc/entry/s_seqno_in_doc_sort" />
+        <field column="s_document_name"      xpath="/doc/entry/s_document_name" />
+        <!-- <field column="d_document_start"     xpath="/doc/entry/d_document_start" /> -->
+        <!-- <field column="d_document_end"       xpath="/doc/entry/d_document_end" /> -->
+        <field column="s_document_type"      xpath="/doc/entry/s_document_type" />
+        <!-- doc_group_type_name -->
+        <field column="s_library_type"       xpath="/doc/entry/s_library_type" />
+        <!-- doc_group_name -->
+        <field column="s_library_loc"        xpath="/doc/entry/s_library_loc" />
 
-      <field column="entry_id"           name="id"/>
-      <field column="letter"             name="a_letter"/>
-      <field column="entry_name"         name="s_author_name"/>
-      <field column="xref_name"          name="s_author_xref_name"/>
-      <field column="entry_biblio_line"  name="s_entry_biblio_line"/>
-      <field column="entry_biblio_block" name="s_entry_biblio_block"/>
-
-      <field column="title_of_book"      name="s_title_of_book"/>
-      <field column="xref_title_of_book" name="s_xref_title_of_book"/>
-      <field column="role_in_book"       name="s_role_in_book"/>
-      <field column="problem"            name="s_problem"/>
-      <field column="book_biblio_line"   name="s_book_biblio_line"/>
-
-      <field column="copy_code"          name="s_copy_code"/>
-      <field column="copy_notes"         name="s_copy_notes"/>
-      <field column="survives_yn"        name="s_survives_yn"/>
-      <field column="printed_yn"         name="s_printed_yn"/>
-      <field column="uncertain_yn"       name="s_uncertain_yn"/>
-      <field column="document_code"      name="s_document_code"/>
-      <field column="document_code_sort" name="s_document_code_sort"/>
-      <field column="seqno_in_document"  name="s_seqno_in_document"/>
-
-
-      <entity name="document"
-        query="select doc_group_type_name, 
-                      doc_group_name, 
-                      document_name, 
-                      start_date, 
-                      end_date, 
-                      document_type
-               from u_index_medieval_documents_view 
-               where document_code ='${catalogues.document_code}'">
-
-        <field column="doc_group_type_name" name="s_library_type"/> 
-        <field column="doc_group_name"      name="s_library_loc"/> 
-        <field column="document_name"       name="s_document_name"/> 
-        <field column="start_date"          name="d_document_start"/> 
-        <field column="end_date"            name="d_document_end"/> 
-        <field column="document_type"       name="s_document_type"/> 
       </entity>
-
-    </entity> <!-- end entity "catalogues" -->
   </document>
 </dataConfig>
 
