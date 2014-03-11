@@ -43,8 +43,8 @@
         <field column="s_seqno_in_document"  xpath="/doc/entry/s_seqno_in_document" />
         <field column="s_seqno_in_doc_sort"  xpath="/doc/entry/s_seqno_in_doc_sort" />
         <field column="s_document_name"      xpath="/doc/entry/s_document_name" />
-        <!-- <field column="d_document_start"     xpath="/doc/entry/d_document_start" /> -->
-        <!-- <field column="d_document_end"       xpath="/doc/entry/d_document_end" /> -->
+        <field column="d_document_start"     xpath="/doc/entry/d_document_start" />
+        <field column="d_document_end"       xpath="/doc/entry/d_document_end" />
         <field column="s_document_type"      xpath="/doc/entry/s_document_type" />
         <!-- doc_group_type_name -->
         <field column="s_library_type"       xpath="/doc/entry/s_library_type" />
