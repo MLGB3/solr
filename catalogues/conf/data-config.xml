@@ -13,6 +13,12 @@
         transformer="RegexTransformer,DateFormatTransformer"
       >        
         <field column="id" xpath="/doc/entry/@id"/>
+
+        <field column="solr_id_sort"         xpath="/doc/entry/solr_id_sort" /> 
+        <field column="sql_entry_id"         xpath="/doc/entry/sql_entry_id" /> 
+        <field column="sql_entry_book_count" xpath="/doc/entry/sql_entry_book_count" /> 
+        <field column="sql_copy_count"       xpath="/doc/entry/sql_copy_count" /> 
+
         <field column="s_author_name" xpath="/doc/entry/entry_name"/>
 
         <!-- from the 'entries' table -->

@@ -123,8 +123,15 @@
 
    <!--Medieval Catalogues Start-->
 
-   <!-- ID will be concatenated from entry, book and copy IDs -->
+   <!-- ID is allocated in sequence when reading through in order of entry, book and copy IDs -->
+   <!-- In practice this leads to zero-padded Solr ID corresponding to author/title order. -->
    <field name="id" type="string" indexed="true" stored="true" required="true" /> 
+   <field name="solr_id_sort" type="string" indexed="true" stored="true" /> 
+
+   <!-- SQL key fields for use in deciding if the entry/book/copy has changed -->
+   <field name="sql_entry_id"         type="string" indexed="false" stored="true" /> 
+   <field name="sql_entry_book_count" type="string" indexed="false" stored="true" /> 
+   <field name="sql_copy_count"       type="string" indexed="false" stored="true" /> 
 
    <!-- from the 'entries' table -->
    <field name="s_entry_name"         type="string"        indexed="true" stored="true"/>
