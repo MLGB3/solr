@@ -164,10 +164,19 @@
    <field name="d_document_start"     type="date"   indexed="true" stored="true"/>
    <field name="d_document_end"       type="date"   indexed="true" stored="true"/>
    <field name="s_document_type"      type="string" indexed="true" stored="true"/>
+   <!-- doc_group_type_code -->
+   <field name="s_library_type_code"  type="string" indexed="false" stored="true"/>
    <!-- doc_group_type_name -->
    <field name="s_library_type"       type="string" indexed="true" stored="true"/>
+   <!-- doc_group_id -->
+   <field name="s_library_loc_id"     type="string" indexed="false" stored="true"/>
    <!-- doc_group_name -->
    <field name="s_library_loc"        type="string" indexed="true" stored="true"/>
+
+   <!-- from the 'MLGB links' table -->
+   <field name="s_mlgb_book_id"       type="string" indexed="true" stored="true" multiValued="true" />
+   
+
 
    <!-- catch all text, containing all searchable fields (implemented
         via copyField further on in this schema  -->
