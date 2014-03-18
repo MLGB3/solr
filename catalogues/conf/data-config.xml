@@ -27,6 +27,7 @@
         <field column="s_author_name"        xpath="/doc/entry/s_author_name" />
         <field column="s_entry_biblio_line"  xpath="/doc/entry/s_entry_biblio_line" />
         <field column="s_entry_biblio_block" xpath="/doc/entry/s_entry_biblio_block" />
+        <field column="s_entry_letter"       xpath="/doc/entry/sql_letter" />
 
         <!-- from the 'books' table -->
         <field column="s_title_of_book"      xpath="/doc/entry/s_title_of_book" />
