@@ -58,6 +58,7 @@
         <!-- fields to search on -->
         <field column="s_document_start_year" xpath="/doc/entry/s_document_start_year" />
         <field column="s_document_end_year"   xpath="/doc/entry/s_document_end_year" />
+        <field column="s_document_date_in_words"   xpath="/doc/entry/s_document_date_in_words" />
 
         <field column="s_document_type"      xpath="/doc/entry/s_document_type" />
 
