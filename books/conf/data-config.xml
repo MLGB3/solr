@@ -77,7 +77,8 @@
                       '\n', '' ), '\r', '' )
                       as provenance_full,
                       IFNULL(county,'') as county, 
-                      IFNULL(institution,'') as institution 
+                      IFNULL(institution,'') as institution,
+                      ifnull( notes, '' ) as prov_notes
                from books_provenance 
                where id ='${books.provenance_id}'">
 
@@ -86,6 +87,7 @@
         <field column="provenance_full" name="pr_full"/>
         <field column="county" name="ct"/>
         <field column="institution" name="ins"/>
+        <field column="prov_notes" name="prov_notes"/>
       </entity>
 
       <entity name="ml1"

@@ -136,6 +136,8 @@
    <field name="ct" type="string" indexed="true" stored="true"/> <!-- provenance, county -->
    <field name="ins" type="string" indexed="true" stored="true"/><!-- provenance, institution name --> 
 
+   <field name="prov_notes" type="string" indexed="true" stored="true"/><!-- notes on provenance --> 
+
    <field name="ml1" type="string" indexed="true" stored="true"/><!-- modern location, city etc -->
    <field name="ml2" type="string" indexed="true" stored="true"/><!-- modern location, institution name-->
 
@@ -230,6 +232,7 @@
  <!-- Start copyField section -->
  <!-- ======================= -->
  <copyField source="pr" dest="text"/>
+ <copyField source="prov_notes" dest="text"/>
  <copyField source="ct" dest="text"/>
  <copyField source="ins" dest="text"/>
  <copyField source="ml1" dest="text"/>
@@ -248,6 +251,7 @@
  <copyField source="ml2" dest="library"/>
 
  <copyField source="pr" dest="provenance"/>
+ <copyField source="prov_notes" dest="provenance"/>
  <copyField source="ct" dest="provenance"/>
  <copyField source="ins" dest="provenance"/>
 
