@@ -29,7 +29,7 @@
   <!-- Used to specify an alternate directory to hold all index data
        other than the default ./data under the Solr home.
        If replication is in use, this should match the replication configuration. -->
-  <dataDir>/usr/share/solr/books/data</dataDir>
+  <dataDir>/home/mlgb/sites/mlgb/solr/books/data</dataDir>
 
 
   <indexDefaults>
@@ -585,7 +585,7 @@
   <requestHandler name="/dataimport" class="org.apache.solr.handler.dataimport.DataImportHandler">
    
     <lst name="defaults">
-      <str name="config">/usr/share/solr/books/conf/data-config.xml</str>
+      <str name="config">/home/mlgb/sites/mlgb/solr/books/conf/data-config.xml</str>
     </lst>
   </requestHandler>
 
