@@ -170,7 +170,7 @@
    <field name="pr_full" type="string" indexed="true" stored="true"/>
    <field name="ml_full" type="string" indexed="true" stored="true"/>
 
-   <field name="imageurl" type="string" indexed="false" stored="true" multiValued="true" />
+   <field name="imageurl" type="string" indexed="true" stored="true" multiValued="true" />
    <field name="imagetitle" type="string" indexed="false" stored="true" multiValued="true" />
    <field name="imagecaption" type="string" indexed="false" stored="true" multiValued="true" />
 
